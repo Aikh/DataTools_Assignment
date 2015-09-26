@@ -17,9 +17,8 @@ shinyServer(
   
     
     cplot<-function(x) (input$a*x^2+input$b*x+input$c)
-    line<-function(x) (x-x)
     output$curveplot <- renderPlot({
-    plot(curve(cplot,xlim=c(xlim2()-abs(xlim2()*0.4),xlim1()+abs(xlim1()*0.4))),type="l",xlim=c(xlim2()-abs(xlim2()*0.3),xlim1()+abs(xlim1()*0.3)),ylim=c(-10,10),ylab="y",xlab="x")
+    plot(curve(cplot,xlim=c(xlim2()-abs((xlim2()-xlim1())*0.15+0.1),xlim1()+abs((xlim2()-xlim1())*0.15+0.1))),type="l",xlim=c(xlim2()-abs((xlim2()-xlim1())*0.1+0.1),xlim1()+abs((xlim2()-xlim1())*0.1+0.1)),ylim=c(-10,10),ylab="y",xlab="x")
 
       }
 )

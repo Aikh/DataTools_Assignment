@@ -4,47 +4,70 @@ subtitle    : Quadratic Equation Solver
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
-url:
-#  lib: ../../libraries
-  lib: ../../librariesNew
-  assets: ../../assets
-widgets     : [mathjax, quiz, bootstrap]
-mode        : selfcontained # {standalone, draft}
+widgets     : [mathjax, quiz, bootstrap, shiny, interactive]
 ---
 
 ## About the tool
 
 - This tool computes the intercepts of a quadratic curve and the x-axis and makes a plot of the area near the intercepts.
+- Three inputs are required
+  - x^2 term
+  - x term
+  - constant
+- Results may not be available where the roots are not real
+
+--- &interactive
+
+## Behind the scenes 1
+
+
+```r
+slidifyUI(
+  sidebarPanel(
+    selectInput('sex', 'Choose Sex', c('Male', 'Female')),
+    selectInput('type', 'Choose Type',
+      c('multiBarChart', 'multiBarHorizontalChart')
+    )
+  ),
+  mainPanel(
+    tags$div(id = 'nvd3plot', class='shiny-html-output nvd3 rChart')
+  )
+)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "slidifyUI"
+```
+
+
+--- &interactive
+
+
+```r
+slidifyUI(
+sidebarPanel(
+numericInput('a', 'x^2 term', 5),
+      numericInput('b', 'x term', 90),
+      numericInput('c', 'constant', 5),
+      submitButton('Submit')
+)
+)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "slidifyUI"
+```
+
+
+
 
 ---
 
-## Slide 2
+## Behind the scenes 2
+- Calculates x1 and x2 using `$$\frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}$$`
+$$\frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}$$
 
-- Fire up RStudio! 
-- First, make sure you have devtools installed and loaded
-
-```r
-install.packages("devtools")
-library(devtools)
-```
-
-- Second, install Slidify
-
-```r
-install_github('slidify', 'ramnathv')
-install_github('slidifyLibraries', 'ramnathv')
-```
-
-- Third, load Slidify
-
-```r
-library(slidify)
-```
-
----
-
-## Slide 3
-
+- e.g. for 6x^2 -5x + 3
 - Set the working directory to where you want to create your Slidify project
 
 ```r
@@ -55,6 +78,17 @@ setwd("~/sample/project/")
 
 ```r
 author("first_deck")
+```
+
+```r
+a<-6
+b<-5
+c<-3
+x1<- (-(b)+(b^2-4*a*c)^0.5)/2a
+x1<- (-(b)-(b^2-4*a*c)^0.5)/2a
+
+x1
+x2
 ```
 
 ---
